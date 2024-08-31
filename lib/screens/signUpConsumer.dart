@@ -1,16 +1,17 @@
 // ignore_for_file: unused_field, camel_case_types
 
+import 'package:farmlink/screens/homeConsumer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class signUpCustomer extends StatefulWidget {
-  const signUpCustomer({super.key});
+class signUpConsumer extends StatefulWidget {
+  const signUpConsumer({super.key});
 
   @override
-  State<signUpCustomer> createState() => _signUpCustomerState();
+  State<signUpConsumer> createState() => _signUpConsumerState();
 }
 
-class _signUpCustomerState extends State<signUpCustomer> {
+class _signUpConsumerState extends State<signUpConsumer> {
   final _formKey = GlobalKey<FormState>();
   late String _fullName,
       _farmerId,
@@ -30,6 +31,10 @@ class _signUpCustomerState extends State<signUpCustomer> {
         SnackBar(content: Text('You must accept the terms and conditions')),
       );
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => homeConsumer()),
+    );
   }
 
   void _openTermsAndConditions() {
