@@ -1,3 +1,4 @@
+import 'package:farmlink/screens/signUpFarmer.dart';
 import 'package:flutter/material.dart';
 class signInFarmer extends StatefulWidget {
   const signInFarmer({super.key});
@@ -7,7 +8,6 @@ class signInFarmer extends StatefulWidget {
 }
 
 class _signInFarmerState extends State<signInFarmer> {
-  final getText = TextEditingController();
   late String getEmail,getPass;
   late String email;
   late String pass;
@@ -40,7 +40,14 @@ class _signInFarmerState extends State<signInFarmer> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  ElevatedButton(onPressed: setText, child: Text('Sign Up!')),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const signUpFarmer())
+                        );
+                      }, child: Text('Sign Up!')
+                  ),
                   ElevatedButton(onPressed: setText, child: Text('Login')),
                 ],
               ),

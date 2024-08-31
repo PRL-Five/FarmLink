@@ -23,7 +23,7 @@ Builder body(BuildContext context) {
                   context,
                   MaterialPageRoute(builder: (context) => const signInFarmer()),
                 );},
-              child: Text('Consumer'),
+              child: Text('Farmer'),
             ),
             ElevatedButton(
               onPressed:  () {
@@ -31,7 +31,7 @@ Builder body(BuildContext context) {
                 context,
                 MaterialPageRoute(builder: (context) => const signInConsumer()),
               );},
-              child: Text('Farmer'),
+              child: Text('Consumer'),
             ),
           ],
         )
