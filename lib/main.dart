@@ -1,5 +1,5 @@
-import 'package:farmlink/screens/signin.dart';
 import 'package:flutter/material.dart';
+import 'package:farmlink/screens/signin.dart'; // Ensure this path is correct
 
 void main() {
   runApp(const MyApp());
@@ -8,11 +8,12 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: home(context),
-      );
+      debugShowCheckedModeBanner: false,
+      home: Home(), // Use Home widget directly
+      theme: ThemeData(primarySwatch: Colors.green),
+    );
   }
 }

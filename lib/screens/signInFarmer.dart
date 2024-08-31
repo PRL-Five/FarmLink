@@ -1,5 +1,6 @@
 import 'package:farmlink/screens/signUpFarmer.dart';
 import 'package:flutter/material.dart';
+
 class signInFarmer extends StatefulWidget {
   const signInFarmer({super.key});
 
@@ -8,18 +9,23 @@ class signInFarmer extends StatefulWidget {
 }
 
 class _signInFarmerState extends State<signInFarmer> {
-  late String getEmail,getPass;
+  late String getEmail, getPass;
   late String email;
   late String pass;
   void setText() {
     setState(() {
-       email = getEmail;
-       pass = getPass;
+      email = getEmail;
+      pass = getPass;
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text('Sign in as Farmer'),
+          backgroundColor: Colors.green,
+        ),
         body: Form(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -44,22 +50,20 @@ class _signInFarmerState extends State<signInFarmer> {
                       onPressed: () {
                         Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => const signUpFarmer())
-                        );
-                      }, child: Text('Sign Up!')
-                  ),
+                            MaterialPageRoute(
+                                builder: (context) => const signUpFarmer()));
+                      },
+                      child: Text('Sign Up!')),
                   ElevatedButton(onPressed: setText, child: Text('Login')),
                 ],
               ),
-              ElevatedButton(onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Go Back!')
-            ),
-
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Go Back!')),
             ],
           ),
-        )
-    );
+        ));
   }
 }
