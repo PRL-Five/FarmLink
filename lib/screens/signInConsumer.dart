@@ -1,3 +1,6 @@
+// ignore_for_file: camel_case_types, file_names
+
+import 'package:farmlink/screens/signUpConsumer.dart';
 import 'package:flutter/material.dart';
 
 class signInConsumer extends StatefulWidget {
@@ -42,7 +45,14 @@ class _signInConsumerState extends State<signInConsumer> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              ElevatedButton(onPressed: setText, child: Text('Sign Up!')),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const signUpCustomer()));
+                  },
+                  child: Text('Sign Up!')),
               ElevatedButton(onPressed: setText, child: Text('Login')),
             ],
           ),
