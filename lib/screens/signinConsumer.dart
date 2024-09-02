@@ -21,10 +21,13 @@ class _signInConsumerState extends State<signInConsumer> {
       pass = getPass;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: AppBar(
+          title: Text('Sign in as Consumer'),
+          backgroundColor: Colors.green,
+        ),
         body: Form(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

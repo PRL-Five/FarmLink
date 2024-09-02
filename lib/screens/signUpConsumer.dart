@@ -3,7 +3,8 @@
 import 'package:farmlink/screens/homeConsumer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-
+import 'mongodb.dart';
+typedef dict = Map<String, dynamic>;
 class signUpConsumer extends StatefulWidget {
   const signUpConsumer({super.key});
 
@@ -12,17 +13,25 @@ class signUpConsumer extends StatefulWidget {
 }
 
 class _signUpConsumerState extends State<signUpConsumer> {
-  final _formKey = GlobalKey<FormState>();
-  late String _fullName,
-      _farmerId,
-      _email,
-      _password,
-      _confirmPassword,
-      _mobileNumber;
+  final formKey = GlobalKey<FormState>();
+  late String fullName,
+      farmerId,
+      email,
+      password,
+      confirmPassword,
+      mobileNumber;
   bool _termsAccepted = false;
-
+  dict throwData() {
+    dict ans = {
+      "fullName" : fullName,
+      "email" : email,
+      "password" : password,
+      "mobile" : mobileNumber,
+    };
+    return ans;
+  }
   void _signUp() {
-    if (_formKey.currentState!.validate() && _termsAccepted) {
+    if (formKey.currentState!.validate() && _termsAccepted) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Sign-up successful')),
       );
@@ -35,6 +44,8 @@ class _signUpConsumerState extends State<signUpConsumer> {
       context,
       MaterialPageRoute(builder: (context) => homeConsumer()),
     );
+    dict sendToDb = throwData();
+    mongodb.insert(sendToDb);
   }
 
   void _openTermsAndConditions() {
@@ -55,14 +66,14 @@ class _signUpConsumerState extends State<signUpConsumer> {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Full Name'),
-                  onChanged: (value) => _fullName = value,
+                  onChanged: (value) => fullName = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your full name';
@@ -82,7 +93,7 @@ class _signUpConsumerState extends State<signUpConsumer> {
                 // ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Email Address'),
-                  onChanged: (value) => _email = value,
+                  onChanged: (value) => email = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email address';
@@ -96,7 +107,7 @@ class _signUpConsumerState extends State<signUpConsumer> {
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Password'),
                   obscureText: true,
-                  onChanged: (value) => _password = value,
+                  onChanged: (value) => password = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -107,12 +118,12 @@ class _signUpConsumerState extends State<signUpConsumer> {
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Confirm Password'),
                   obscureText: true,
-                  onChanged: (value) => _confirmPassword = value,
+                  onChanged: (value) => confirmPassword = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please confirm your password';
                     }
-                    if (value != _password) {
+                    if (value != password) {
                       return 'Passwords do not match';
                     }
                     return null;
@@ -120,7 +131,7 @@ class _signUpConsumerState extends State<signUpConsumer> {
                 ),
                 TextFormField(
                   decoration: InputDecoration(labelText: 'Mobile Number'),
-                  onChanged: (value) => _mobileNumber = value,
+                  onChanged: (value) => mobileNumber = value,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your mobile number';
