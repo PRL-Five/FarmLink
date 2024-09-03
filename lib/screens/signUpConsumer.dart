@@ -45,7 +45,7 @@ class _signUpConsumerState extends State<signUpConsumer> {
       MaterialPageRoute(builder: (context) => homeConsumer()),
     );
     dict sendToDb = throwData();
-    mongodb.insert(sendToDb);
+    mongodb.insertUser(sendToDb);
   }
 
   void _openTermsAndConditions() {

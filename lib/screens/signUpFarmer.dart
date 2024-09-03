@@ -41,7 +41,7 @@ class _signUpFarmerState extends State<signUpFarmer> {
       );
     }
     dict sendToDb = throwData();
-    mongodb.insert(sendToDb);
+    mongodb.insertFarmer(sendToDb);
   }
 
   void _openTermsAndConditions() {

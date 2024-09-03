@@ -1,8 +1,10 @@
 // ignore_for_file: camel_case_types, file_names
 
+import 'package:farmlink/screens/homeConsumer.dart';
 import 'package:farmlink/screens/signUpConsumer.dart';
 import 'package:flutter/material.dart';
-
+import 'mongodb.dart';
+typedef dict = Map<String, dynamic>;
 class signInConsumer extends StatefulWidget {
   const signInConsumer({super.key});
 
@@ -15,11 +17,27 @@ class _signInConsumerState extends State<signInConsumer> {
   late String getEmail, getPass;
   late String email;
   late String pass;
-  void setText() {
+  Future<void> setText() async {
     setState(() {
       email = getEmail;
       pass = getPass;
     });
+    bool isEmail = await mongodb.emailExistsUser(email);
+    bool isPassword = await mongodb.passwordExistsUser(pass);
+    if(isEmail == false) {
+      print("Account does not exist");
+      //TODO SHOW A SNACKBAR SAYING ACC DNE
+    }
+    else if(isEmail == true && isPassword == false) {
+      print("Account exists but password incorrect");
+      //TODO SHOW THIS IN SNACKBAR
+    }
+    else {
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const homeConsumer()));
+    }
   }
   @override
   Widget build(BuildContext context) {

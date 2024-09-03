@@ -1,6 +1,8 @@
 import 'package:farmlink/screens/signUpFarmer.dart';
 import 'package:flutter/material.dart';
 
+import 'mongodb.dart';
+
 class signInFarmer extends StatefulWidget {
   const signInFarmer({super.key});
 
@@ -12,11 +14,16 @@ class _signInFarmerState extends State<signInFarmer> {
   late String getEmail, getPass;
   late String email;
   late String pass;
-  void setText() {
+  Future<void> setText() async {
     setState(() {
       email = getEmail;
       pass = getPass;
     });
+    bool test = await mongodb.emailExistsFarmer(email);
+    if(test == false) {
+      print("This works");
+      //TODO SHOW A SNACKBAR SAYING CANT LOG IN HERE
+    }
   }
 
   @override
