@@ -3,92 +3,111 @@ import 'package:farmlink/screens/signInConsumer.dart';
 import 'package:farmlink/screens/signInFarmer.dart';
 
 class Home extends StatelessWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.lightGreen,
+      backgroundColor: Colors.white,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // // Display the logo image
-            // Image.asset(
-            //   'assets/icon/app-icon.jpg', // Updated path to your logo image
-            //   width: 150, // Adjust width as needed
-            //   height: 150, // Adjust height as needed
-            //   fit: BoxFit.cover,
-            //   errorBuilder: (context, error, stackTrace) {
-            //     return Text(
-            //       'Image not found!',
-            //       style: TextStyle(color: Colors.red, fontSize: 20),
-            //     );
-            //   },
-            // ),
-            // SizedBox(height: 20),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              // const SizedBox(height: 200),
+              // logo
+              Padding(
+                padding: const EdgeInsets.all(25.0),
+                child: Center(
+                  child: Image.asset(
+                    'lib/assets/icons/app-icon.jpg',
+                    height: 240,
+                  ),
+                ),
+              ),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                'Welcome to FarmLink!\n\n'
-                'Are you a Farmer or a Consumer?',
+              //title
+              const Text(
+                'WELCOME TO FARMLINK!',
                 style: TextStyle(
-                  fontSize: 26,
                   fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                  letterSpacing: 1.2,
-                  height: 1.4,
+                  fontSize: 30,
+                  color: Colors.green,
                 ),
                 textAlign: TextAlign.center,
               ),
-            ),
-            SizedBox(height: 40),
-            Column(
-              children: [
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
+
+              const SizedBox(height: 48),
+
+              // subtitle
+              const Text(
+                'Are You A Farmer or \n A Consumer?',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              // start now button
+              Column(
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const signInFarmer()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      textStyle: TextStyle(fontSize: 22),
-                    ),
-                    child: Text(
-                      'Farmer',
-                      style: TextStyle(color: Colors.blueGrey),
+                          builder: (context) => signInFarmer(),
+                        )),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.all(15),
+                      child: const Center(
+                        child: Text(
+                          'Farmer',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-                SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
+                  const SizedBox(height: 15),
+
+                  // box for consumer
+                  GestureDetector(
+                    onTap: () => Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const signInConsumer()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 15),
-                      textStyle: TextStyle(fontSize: 22),
-                    ),
-                    child: Text(
-                      'Consumer',
-                      style: TextStyle(color: Colors.blueGrey),
+                          builder: (context) => signInConsumer(),
+                        )),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.green,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      padding: const EdgeInsets.all(15),
+                      child: const Center(
+                        child: Text(
+                          'Consumer',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
