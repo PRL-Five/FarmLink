@@ -14,9 +14,10 @@ class signInConsumer extends StatefulWidget {
 
 class _signInConsumerState extends State<signInConsumer> {
   final getText = TextEditingController();
-  late String getEmail, getPass;
+  late String getEmail, getPass,getAlert = '';
   late String email;
   late String pass;
+  late String alert = '';
   Future<void> setText() async {
     setState(() {
       email = getEmail;
@@ -25,18 +26,23 @@ class _signInConsumerState extends State<signInConsumer> {
     bool isEmail = await mongodb.emailExistsUser(email);
     bool isPassword = await mongodb.passwordExistsUser(pass);
     if(isEmail == false) {
-      print("Account does not exist");
-      //TODO SHOW A SNACKBAR SAYING ACC DNE
+      getAlert = "Account does not exist";
+      setState(() {
+        alert = getAlert;
+      });
     }
     else if(isEmail == true && isPassword == false) {
-      print("Account exists but password incorrect");
-      //TODO SHOW THIS IN SNACKBAR
+      getAlert = "incorrect password";
+      setState(() {
+        alert = getAlert;
+      });
     }
     else {
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const homeConsumer()));
+
+        print('Inside context.mounted');
+        Navigator.push(context,
+            MaterialPageRoute(
+                builder: (context) => const homeConsumer()));
     }
   }
   @override
@@ -63,6 +69,7 @@ class _signInConsumerState extends State<signInConsumer> {
               hintText: 'Enter password',
             ),
           ),
+          Text(alert),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

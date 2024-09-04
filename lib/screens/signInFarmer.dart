@@ -1,6 +1,7 @@
 import 'package:farmlink/screens/signUpFarmer.dart';
 import 'package:flutter/material.dart';
 
+import 'homeFarmer.dart';
 import 'mongodb.dart';
 
 class signInFarmer extends StatefulWidget {
@@ -11,18 +12,34 @@ class signInFarmer extends StatefulWidget {
 }
 
 class _signInFarmerState extends State<signInFarmer> {
-  late String getEmail, getPass;
+  late String getEmail, getPass,getAlert = '';
   late String email;
   late String pass;
+  late String alert = '';
   Future<void> setText() async {
     setState(() {
       email = getEmail;
       pass = getPass;
+      alert = getAlert;
     });
-    bool test = await mongodb.emailExistsFarmer(email);
-    if(test == false) {
-      print("This works");
-      //TODO SHOW A SNACKBAR SAYING CANT LOG IN HERE
+    bool emailSt = await mongodb.emailExistsFarmer(email);
+    bool passSt = await mongodb.passwordExistsFarmer(pass);
+    if(emailSt == false) {
+      getAlert = 'email does not exist. Create a free account using the sign up button';
+      setState(() {
+        alert = getAlert;
+      });
+    }
+    else if(emailSt == true && passSt == false) {
+      getAlert = 'incorrect password';
+      setState(() {
+        alert = getAlert;
+      });
+    }
+    else {
+      Navigator.push(context,
+          MaterialPageRoute(
+              builder: (context) => const homeFarmer()));
     }
   }
 
@@ -48,6 +65,12 @@ class _signInFarmerState extends State<signInFarmer> {
                 onChanged: (value) => getPass = value,
                 decoration: InputDecoration(
                   hintText: 'Enter password',
+                ),
+              ),
+              Text(
+                alert,
+                style: TextStyle(
+                  color: Colors.red,
                 ),
               ),
               Row(

@@ -27,7 +27,6 @@ class mongodb {
     var db = await Db.create(MONGO_URL);
     await db.open();
     var collection = db.collection(COLLECTION_NAME_USER);
-    print(await collection.findOne({"email" : email}));
     if(await collection.findOne({"email" : email}) == null) {
       print("Email not found");
       return false;
@@ -39,7 +38,6 @@ class mongodb {
     var db = await Db.create(MONGO_URL);
     await db.open();
     var collection = db.collection(COLLECTION_NAME_FARMER);
-    print(await collection.findOne({"email" : email}));
     if(await collection.findOne({"email" : email}) == null) {
       print("Email not found");
       return false;
@@ -52,10 +50,21 @@ class mongodb {
     await db.open();
     var collection = db.collection(COLLECTION_NAME_USER);
     if(await collection.findOne({"password" : password}) == null) {
-      print("Email not found");
+      print("Password not found");
       return false;
     }
-    print("Email Found");
+    print("Password Found");
+    return true;
+  }
+  static Future<bool> passwordExistsFarmer(String password) async {
+    var db = await Db.create(MONGO_URL);
+    await db.open();
+    var collection = db.collection(COLLECTION_NAME_FARMER);
+    if(await collection.findOne({"password" : password}) == null) {
+      print("Password not found");
+      return false;
+    }
+    print("Password Found");
     return true;
   }
 }
