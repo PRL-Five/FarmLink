@@ -1,6 +1,8 @@
 import 'package:farmlink/screens/mongodb.dart';
 import 'package:flutter/material.dart';
-import 'package:farmlink/screens/signin.dart';// Ensure this path is correct
+import 'package:farmlink/screens/signin.dart';
+import 'package:farmlink/models/cart.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -13,10 +15,12 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Home(), // Use Home widget directly
-      theme: ThemeData(primarySwatch: Colors.green),
+    return ChangeNotifierProvider(
+      create: (context) => Cart(),
+      builder: (context, child) => const MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Home(), // Use Home widget directly
+      ),
     );
   }
 }
