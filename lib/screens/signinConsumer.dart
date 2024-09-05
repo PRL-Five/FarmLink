@@ -13,13 +13,14 @@ class signInConsumer extends StatefulWidget {
 }
 
 class _signInConsumerState extends State<signInConsumer> {
-  final getText = TextEditingController();
-  late String getEmail, getPass,getAlert = '';
+  bool checker = false;
+  late String getEmail = '', getPass = '',getAlert = '';
   late String email;
   late String pass;
   late String alert = '';
   Future<void> setText() async {
     setState(() {
+      checker = true;
       email = getEmail;
       pass = getPass;
     });
@@ -28,17 +29,21 @@ class _signInConsumerState extends State<signInConsumer> {
     if(isEmail == false) {
       getAlert = "Account does not exist";
       setState(() {
+        checker = false;
         alert = getAlert;
       });
     }
     else if(isEmail == true && isPassword == false) {
       getAlert = "incorrect password";
       setState(() {
+        checker = false;
         alert = getAlert;
       });
     }
     else {
-
+        setState(() {
+          checker = false;
+        });
         print('Inside context.mounted');
         Navigator.push(context,
             MaterialPageRoute(
@@ -49,7 +54,7 @@ class _signInConsumerState extends State<signInConsumer> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Sign in as Consumer'),
+          title: const Text('Sign in as Consumer'),
           backgroundColor: Colors.green,
         ),
         body: Form(
@@ -59,17 +64,24 @@ class _signInConsumerState extends State<signInConsumer> {
           Text('Sign in to FarmLink as Consumer'),
           TextField(
             onChanged: (value) => getEmail = value,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Enter email',
             ),
           ),
           TextField(
             onChanged: (value) => getPass = value,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               hintText: 'Enter password',
             ),
           ),
-          Text(alert),
+          Visibility(
+              visible: checker,
+              child: const CircularProgressIndicator(
+                color: Colors.green,
+                strokeWidth: 1.5,
+              )
+          ),
+          Text(alert,style: const TextStyle(color: Colors.red),),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -80,7 +92,7 @@ class _signInConsumerState extends State<signInConsumer> {
                         MaterialPageRoute(
                             builder: (context) => const signUpConsumer()));
                   },
-                  child: Text('Sign Up!')),
+                  child: const Text('Sign Up!')),
               ElevatedButton(onPressed: setText, child: Text('Login')),
             ],
           ),
@@ -88,7 +100,7 @@ class _signInConsumerState extends State<signInConsumer> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text('Go Back!')),
+              child: const Text('Go Back!')),
         ],
       ),
     ));
