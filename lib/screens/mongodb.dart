@@ -67,4 +67,40 @@ class mongodb {
     print("Password Found");
     return true;
   }
+  static Future<dict?> getDataUser(String email) async {
+    var db = await Db.create(MONGO_URL);
+    await db.open();
+    var collection = db.collection(COLLECTION_NAME_USER);
+    if(await collection.findOne(COLLECTION_NAME_USER) != null) {
+       dict ans = await collection.findOne(COLLECTION_NAME_USER) as dict;
+       print(ans);
+       return ans;
+    }
+    return null;
+  }
+  static Future<String> getFullName(String email) async {
+    var db = await Db.create(MONGO_URL);
+    await db.open();
+    var collection = db.collection(COLLECTION_NAME_USER);
+    dict? det = await collection.findOne({"email" : email});
+   String ans = det?['fullName'];
+    return ans;
+  }
+  static Future<String> getPassword(String pass) async {
+    var db = await Db.create(MONGO_URL);
+    await db.open();
+    var collection = db.collection(COLLECTION_NAME_USER);
+    dict? det = await collection.findOne({"email" : pass});
+    String ans = det?['password'];
+    return ans;
+  }
+  static Future<String> getPhone(String email) async {
+    var db = await Db.create(MONGO_URL);
+    await db.open();
+    var collection = db.collection(COLLECTION_NAME_USER);
+    dict? det = await collection.findOne({"email" : email});
+    String ans = det?['mobile'];
+    return ans;
+  }
+
 }

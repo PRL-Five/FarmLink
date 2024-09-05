@@ -41,13 +41,18 @@ class _signInConsumerState extends State<signInConsumer> {
       });
     }
     else {
+        String fullName = await mongodb.getFullName(email);
+        String password = await mongodb.getPassword(email);
+        String mobile = await mongodb.getPhone(email);
+        print('Inside context.mounted');
         setState(() {
           checker = false;
         });
-        print('Inside context.mounted');
-        Navigator.push(context,
+        Navigator.pushAndRemoveUntil(context,
             MaterialPageRoute(
-                builder: (context) => const homeConsumer()));
+                builder: (context) => homeConsumer(fullName: fullName,password: password,mobile: mobile,email: email,)),
+                (Route<dynamic> route) => false
+        );
     }
   }
   @override
@@ -74,6 +79,7 @@ class _signInConsumerState extends State<signInConsumer> {
               hintText: 'Enter password',
             ),
           ),
+          const SizedBox(height: 30,),
           Visibility(
               visible: checker,
               child: const CircularProgressIndicator(

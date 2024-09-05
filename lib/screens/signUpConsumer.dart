@@ -1,6 +1,7 @@
 // ignore_for_file: unused_field, camel_case_types
 
 import 'package:farmlink/screens/homeConsumer.dart';
+import 'package:farmlink/screens/signInConsumer.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'mongodb.dart';
@@ -42,7 +43,7 @@ class _signUpConsumerState extends State<signUpConsumer> {
     }
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => homeConsumer()),
+      MaterialPageRoute(builder: (context) => const signInConsumer()),
     );
     dict sendToDb = throwData();
     mongodb.insertUser(sendToDb);
